@@ -6,12 +6,14 @@
 #include "Poblacion.h"
 
 
-Poblacion::Poblacion(std::string s) :n(), maxRiesgo(){
+Poblacion::Poblacion(std::string s) :n(), maxRiesgo(), cities(){
 
     std::ifstream file{s};  //archivo a leer
-    //float x, y; //ejes
+    float x, y; //ejes
     int i, d;   //iterador y demanda
     std::vector<int> demanda;
+    std::vector<float> ejeX;
+    std::vector<float> ejeY;
 
     if (!file.good()){
         exit (EXIT_FAILURE);
@@ -29,7 +31,7 @@ Poblacion::Poblacion(std::string s) :n(), maxRiesgo(){
         std::cout << demanda.at(i) << '\n';
     }
 
-    /*Guardo ejes de cada nodo
+    /*Guardo ejes de cada nodo*/
     for (i=0; i<n; i++){
         file >> x >> y;
         ejeX.push_back(x);
@@ -37,7 +39,13 @@ Poblacion::Poblacion(std::string s) :n(), maxRiesgo(){
         std::cout << ejeX.at(i) << ' ' << ejeY.at(i) << '\n';
     }
 
-    */
+    for (i=0; i<n; i++){
+        Nodo ciudad = Nodo(i, ejeX[i], ejeY[i], demanda[i]);
+
+        this->cities.push_back(ciudad);
+        std::cout << this->cities.at(i).numero << ' ' << this->cities.at(i).demanda << '\n';
+    }
+
 
     file.close();
 };
