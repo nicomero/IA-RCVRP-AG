@@ -7,12 +7,12 @@ class Individuo{
 public:
     float calidad;
     std::vector<Nodo> tour;
-    //std::vector<int> retorno;
+    std::vector<int> retorno;
 
     Individuo(std::vector<Nodo> cities, float maxRiesgo );
     float distancia(Nodo u, Nodo w);
     float riesgo(float riesgoPrev, Nodo u, Nodo w, int demandAcum);
-    void mutar();
-    //void evaluar();
+    void mutar( float maxRiesgo );
+    void evaluar( float maxRiesgo );
 };
 #endif
