@@ -47,12 +47,12 @@ Poblacion::Poblacion(std::string s) :n(), maxRiesgo(), cities(), residentes(){
         this->cities.push_back(ciudad);
         std::cout << this->cities.at(i).numero << ' ' << this->cities.at(i).demanda << '\n';
     }
-
+/*
     for (i=0; i<6 ; i++){
 
         Individuo raton = Individuo(this->cities , this->maxRiesgo);
         this->residentes.push_back(raton);
     }
-
+*/
     file.close();
 };

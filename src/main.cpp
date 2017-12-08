@@ -10,7 +10,8 @@ int main(void)
 {
 
     Nodo antiago = Nodo(0, 0.0, 0.0, 0);
-    std::string s = "Instancias-RCVRP/SET R/4_1_1.0.txt";
+    std::string s = "Instancias-RCVRP/SET O/16.txt";
+    //std::string s = "Instancias-RCVRP/SET R/4_1_1.0.txt";
     Poblacion mundo = Poblacion(s);
 
     Individuo nico = Individuo(mundo.cities, mundo.maxRiesgo);
