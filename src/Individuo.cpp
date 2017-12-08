@@ -8,7 +8,7 @@
 #include "Nodo.h"
 #include "Individuo.h"
 
-Individuo::Individuo( std::vector<Nodo> cities, float maxRiesgo ) :calidad(), tour(){
+Individuo::Individuo( std::vector<Nodo> cities, float maxRiesgo ) :calidad(), tour(), retorno(){
 
     Nodo origen = cities[0];
     unsigned int i;
@@ -27,21 +27,28 @@ Individuo::Individuo( std::vector<Nodo> cities, float maxRiesgo ) :calidad(), to
         riesgoAc += riesgo(riesgoAc, cities[i], cities[i+1], demandaAc);
 
         if (riesgoAc > maxRiesgo){
-            this->tour.push_back(origen);
+            this->retorno.push_back(1);
             demandaAc = 0;
             riesgoAc = 0;
+        }
+        else{
+            this->retorno.push_back(0);
         }
 
     }
 
     tour.push_back(cities[i]);
-    tour.push_back(origen);
+    retorno.push_back(1);
 
     for (i=0 ; i < this->tour.size() ; i++){
         std::cout << this->tour[i].numero << "--";
     }
+    std::cout << '\n';
+    for (i=0 ; i < this->retorno.size() ; i++){
+        std::cout << this->retorno[i] << "..";
+    }
 
-    evaluar(maxRiesgo);
+    //evaluar(maxRiesgo);
 };
 
 float Individuo::distancia(Nodo u, Nodo w){
