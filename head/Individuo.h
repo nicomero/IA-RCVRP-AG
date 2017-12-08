@@ -12,7 +12,7 @@ public:
     Individuo(std::vector<Nodo> cities, float maxRiesgo );
     float distancia(Nodo u, Nodo w);
     float riesgo(float riesgoPrev, Nodo u, Nodo w, int demandAcum);
-    void mutar();
-    //void evaluar();
+    void mutar( float maxRiesgo );
+    void evaluar( float maxRiesgo );
 };
 #endif

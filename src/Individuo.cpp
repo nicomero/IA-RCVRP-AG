@@ -41,7 +41,7 @@ Individuo::Individuo( std::vector<Nodo> cities, float maxRiesgo ) :calidad(), to
         std::cout << this->tour[i].numero << "--";
     }
 
-    this->calidad =  5.0;
+    evaluar(maxRiesgo);
 };
 
 float Individuo::distancia(Nodo u, Nodo w){
@@ -57,7 +57,7 @@ float Individuo::riesgo(float riesgoPrev, Nodo u, Nodo w, int demandAcum){
     return riesgoPrev + distancia(u, w)*(float)demandAcum;
 };
 
-void Individuo::mutar(){
+void Individuo::mutar( float maxRiesgo ){
 
     int n = (int) this->tour.size();
 
@@ -72,23 +72,33 @@ void Individuo::mutar(){
         std::cout << this->tour[i].numero << "--";
     }
 
-
+    evaluar( maxRiesgo );
 
 };
-/*
-void Individuo::evaluar(){
+
+void Individuo::evaluar( float maxRiesgo ){
 
     float deltaRiesgo=0;
     float riesgoAc=0;
     float distAc=0;
     int demandAc=0;
+    float autos=0;
 
     for (unsigned i=0 ; i < this->tour.size()-1 ; i++){
+        if (this->tour[i].numero == 0){
+            if (riesgoAc > maxRiesgo){
+                    deltaRiesgo += riesgoAc - maxRiesgo;
+            }
+            riesgoAc=0;
+            demandAc=0;
+            autos+=1;
+        }
         distAc += distancia(this->tour[i], this->tour[i+1]);
-        demandAc += this->tour[i].;
-        riesgoAc += riesgo(riesgoAC, this->tour[i], this->tour[i+1], );
+        demandAc += this->tour[i].demanda;
+        riesgoAc += riesgo(riesgoAc, this->tour[i], this->tour[i+1], demandAc);
 
     }
 
+    this->calidad = distAc + deltaRiesgo + autos;
+
 };
-*/
