@@ -4,9 +4,10 @@
 #include <vector>
 
 #include "Poblacion.h"
+#include "Individuo.h"
 
 
-Poblacion::Poblacion(std::string s) :n(), maxRiesgo(), cities(){
+Poblacion::Poblacion(std::string s) :n(), maxRiesgo(), cities(), residentes(){
 
     std::ifstream file{s};  //archivo a leer
     float x, y; //ejes
@@ -47,6 +48,11 @@ Poblacion::Poblacion(std::string s) :n(), maxRiesgo(), cities(){
         std::cout << this->cities.at(i).numero << ' ' << this->cities.at(i).demanda << '\n';
     }
 
+    for (i=0; i<6 ; i++){
+
+        Individuo raton = Individuo(this->cities , this->maxRiesgo);
+        this->residentes.push_back(raton);
+    }
 
     file.close();
 };
