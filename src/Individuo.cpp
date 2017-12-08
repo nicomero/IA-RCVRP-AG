@@ -8,7 +8,7 @@
 #include "Nodo.h"
 #include "Individuo.h"
 
-Individuo::Individuo( std::vector<Nodo> cities, float maxRiesgo ) :calidad(), tour(){
+Individuo::Individuo( std::vector<Nodo> cities, float maxRiesgo ) :calidad(), tour(), retorno(){
 
     Nodo origen = cities[0];
     unsigned int i;
@@ -27,21 +27,28 @@ Individuo::Individuo( std::vector<Nodo> cities, float maxRiesgo ) :calidad(), to
         riesgoAc += riesgo(riesgoAc, cities[i], cities[i+1], demandaAc);
 
         if (riesgoAc > maxRiesgo){
-            this->tour.push_back(origen);
+            this->retorno.push_back(1);
             demandaAc = 0;
             riesgoAc = 0;
+        }
+        else{
+            this->retorno.push_back(0);
         }
 
     }
 
     tour.push_back(cities[i]);
-    tour.push_back(origen);
+    retorno.push_back(1);
 
     for (i=0 ; i < this->tour.size() ; i++){
         std::cout << this->tour[i].numero << "--";
     }
+    std::cout << '\n';
+    for (i=0 ; i < this->retorno.size() ; i++){
+        std::cout << this->retorno[i] << "--";
+    }
 
-    evaluar(maxRiesgo);
+    //evaluar(maxRiesgo);
 };
 
 float Individuo::distancia(Nodo u, Nodo w){
@@ -63,8 +70,8 @@ void Individuo::mutar( float maxRiesgo ){
 
     std::srand ( unsigned ( std::time(0) ) );
 
-    int lugar1 = std::rand()%n;
-    int lugar2 = std::rand()%n;
+    int lugar1 = 1+ (std::rand()% (n-1));
+    int lugar2 = 1+ (std::rand()% (n-1));
 
     iter_swap(this->tour.begin() + lugar1, this->tour.begin() + lugar2);
 
@@ -72,7 +79,23 @@ void Individuo::mutar( float maxRiesgo ){
         std::cout << this->tour[i].numero << "--";
     }
 
-    evaluar( maxRiesgo );
+    n = (int) this->retorno.size();
+    lugar1 = (std::rand()% (n-1));
+
+    if(retorno[lugar1] == 0){
+        retorno[lugar1] = 1;
+    }
+    else{
+        retorno[lugar1] = 0;
+    }
+
+    std::cout << "\n";
+
+    for (unsigned i=0 ; i < this->retorno.size() ; i++){
+        std::cout << this->retorno[i] << "--";
+    }
+
+    //evaluar( maxRiesgo );
 
 };
 

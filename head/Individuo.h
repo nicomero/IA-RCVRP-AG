@@ -7,7 +7,7 @@ class Individuo{
 public:
     float calidad;
     std::vector<Nodo> tour;
-    //std::vector<int> retorno;
+    std::vector<int> retorno;
 
     Individuo(std::vector<Nodo> cities, float maxRiesgo );
     float distancia(Nodo u, Nodo w);
