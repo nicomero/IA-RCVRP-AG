@@ -32,6 +32,7 @@ Poblacion::Poblacion(std::string s) :n(), maxRiesgo(), cities(){
     }
 
     /*Guardo ejes de cada nodo*/
+
     for (i=0; i<n; i++){
         file >> x >> y;
         ejeX.push_back(x);
