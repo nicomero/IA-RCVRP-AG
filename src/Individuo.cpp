@@ -48,7 +48,7 @@ Individuo::Individuo( std::vector<Nodo> cities, float maxRiesgo ) :calidad(), to
         std::cout << this->retorno[i] << "--";
     }
 
-    //evaluar(maxRiesgo);
+    evaluar(maxRiesgo);
 };
 
 float Individuo::distancia(Nodo u, Nodo w){
@@ -95,7 +95,7 @@ void Individuo::mutar( float maxRiesgo ){
         std::cout << this->retorno[i] << "--";
     }
 
-    //evaluar( maxRiesgo );
+    evaluar( maxRiesgo );
 
 };
 
@@ -103,23 +103,37 @@ void Individuo::evaluar( float maxRiesgo ){
 
     float deltaRiesgo=0;
     float riesgoAc=0;
-    float distAc=0;
+    float distAc;
     int demandAc=0;
-    float autos=0;
+    float autos=1;
+    unsigned int i=1;
 
-    for (unsigned i=0 ; i < this->tour.size()-1 ; i++){
-        if (this->tour[i].numero == 0){
-            if (riesgoAc > maxRiesgo){
-                    deltaRiesgo += riesgoAc - maxRiesgo;
-            }
-            riesgoAc=0;
-            demandAc=0;
-            autos+=1;
-        }
-        distAc += distancia(this->tour[i], this->tour[i+1]);
+    distAc = distancia(this->tour[0], this->tour[1]);
+
+    for (i=1 ; i < this->tour.size()-1 ; i++){
+
         demandAc += this->tour[i].demanda;
-        riesgoAc += riesgo(riesgoAc, this->tour[i], this->tour[i+1], demandAc);
+        if(this->retorno[i-1] == 1){
+            distAc = distancia(this->tour[i], this->tour[0]);
+            riesgoAc += riesgo(riesgoAc, this->tour[i], this->tour[0], demandAc);
+            if (riesgoAc >maxRiesgo){
+                deltaRiesgo += riesgoAc-maxRiesgo;
+            }
+            riesgoAc =0;
+            demandAc = 0;
+            autos += 1;
+        }
+        else{
+            distAc = distancia(this->tour[i], this->tour[i+1]);
+            riesgoAc += riesgo(riesgoAc, this->tour[i], this->tour[i+1], demandAc);
+        }
+    }
 
+    demandAc += this->tour[i].demanda;
+    distAc = distancia(this->tour[i], this->tour[0]);
+    riesgoAc += riesgo(riesgoAc, this->tour[i], this->tour[0], demandAc);
+    if (riesgoAc >maxRiesgo){
+        deltaRiesgo += riesgoAc-maxRiesgo;
     }
 
     this->calidad = distAc + deltaRiesgo + autos;
