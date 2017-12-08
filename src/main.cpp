@@ -15,12 +15,13 @@ int main(void)
 
     Individuo nico = Individuo(mundo.cities, mundo.maxRiesgo);
 
+    std::cout << "calidad nico " << nico.calidad << '\n';
     std::cout << "\n_______________ \n";
-    nico.mutar();
+    nico.mutar(mundo.maxRiesgo);
     std::cout << "\n____________ \n";
-    std::cout << "Hola " << antiago.numero << '\n';
-    std::cout << ".... " << nico.calidad << '\n';
-    std::cout << "chao " << mundo.maxRiesgo;
+    std::cout << "numero nodo " << antiago.numero << '\n';
+    std::cout << "calidad nico " << nico.calidad << '\n';
+    std::cout << "maximo riesgo " << mundo.maxRiesgo;
 
 
     return 0;
