@@ -45,7 +45,7 @@ Individuo::Individuo( std::vector<Nodo> cities, float maxRiesgo ) :calidad(), to
     }
     std::cout << '\n';
     for (i=0 ; i < this->retorno.size() ; i++){
-        std::cout << this->retorno[i] << "..";
+        std::cout << this->retorno[i] << "--";
     }
 
     //evaluar(maxRiesgo);
@@ -70,8 +70,8 @@ void Individuo::mutar( float maxRiesgo ){
 
     std::srand ( unsigned ( std::time(0) ) );
 
-    int lugar1 = std::rand()%n;
-    int lugar2 = std::rand()%n;
+    int lugar1 = 1+ (std::rand()% (n-1));
+    int lugar2 = 1+ (std::rand()% (n-1));
 
     iter_swap(this->tour.begin() + lugar1, this->tour.begin() + lugar2);
 
@@ -79,7 +79,23 @@ void Individuo::mutar( float maxRiesgo ){
         std::cout << this->tour[i].numero << "--";
     }
 
-    evaluar( maxRiesgo );
+    n = (int) this->retorno.size();
+    lugar1 = (std::rand()% (n-1));
+
+    if(retorno[lugar1] == 0){
+        retorno[lugar1] = 1;
+    }
+    else{
+        retorno[lugar1] = 0;
+    }
+
+    std::cout << "\n";
+
+    for (unsigned i=0 ; i < this->retorno.size() ; i++){
+        std::cout << this->retorno[i] << "--";
+    }
+
+    //evaluar( maxRiesgo );
 
 };
 
