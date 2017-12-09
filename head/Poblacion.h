@@ -13,5 +13,6 @@ public:
     std::vector<Individuo> residentes;
 
     Poblacion(std::string s);
+    void mutarMasivo();
 };
 #endif

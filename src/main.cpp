@@ -13,6 +13,7 @@ int main(void)
     std::string s = "Instancias-RCVRP/SET O/16.txt";
     //std::string s = "Instancias-RCVRP/SET R/4_1_1.0.txt";
     Poblacion mundo = Poblacion(s);
+    mundo.mutarMasivo();
 /*
     Individuo nico = Individuo(mundo.cities, mundo.maxRiesgo);
 
