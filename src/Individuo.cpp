@@ -8,14 +8,13 @@
 #include "Nodo.h"
 #include "Individuo.h"
 
-Individuo::Individuo( std::vector<Nodo> cities, float maxRiesgo ) :calidad(), tour(), retorno(){
+Individuo::Individuo( std::vector<Nodo> cities, float maxRiesgo) :calidad(), tour(), retorno(){
 
     Nodo origen = cities[0];
     unsigned int i;
     float riesgoAc=0.0;
     int demandaAc=0;
 
-    std::srand ( unsigned ( std::time(0) ) );
     std::random_shuffle ( cities.begin()+1, cities.end() );
 
     tour.push_back(origen);
@@ -39,7 +38,7 @@ Individuo::Individuo( std::vector<Nodo> cities, float maxRiesgo ) :calidad(), to
 
     tour.push_back(cities[i]);
     retorno.push_back(1);
-
+/*
     for (i=0 ; i < this->tour.size() ; i++){
         std::cout << this->tour[i].numero << "--";
     }
@@ -47,6 +46,8 @@ Individuo::Individuo( std::vector<Nodo> cities, float maxRiesgo ) :calidad(), to
     for (i=0 ; i < this->retorno.size() ; i++){
         std::cout << this->retorno[i] << "--";
     }
+    std::cout << "\n____________________________________\n";
+*/
 
     evaluar(maxRiesgo);
 };
@@ -94,6 +95,8 @@ void Individuo::mutar( float maxRiesgo ){
     for (unsigned i=0 ; i < this->retorno.size() ; i++){
         std::cout << this->retorno[i] << "--";
     }
+
+    std::cout << "\n*****************************************\n";
 
     evaluar( maxRiesgo );
 

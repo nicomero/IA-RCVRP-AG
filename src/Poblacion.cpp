@@ -2,6 +2,8 @@
 #include <fstream>
 #include <string>
 #include <vector>
+#include <ctime>        // std::time
+#include <cstdlib>      // std::rand, std::srand
 
 #include "Poblacion.h"
 #include "Individuo.h"
@@ -47,12 +49,27 @@ Poblacion::Poblacion(std::string s) :n(), maxRiesgo(), cities(), residentes(){
         this->cities.push_back(ciudad);
         std::cout << this->cities.at(i).numero << ' ' << this->cities.at(i).demanda << '\n';
     }
-/*
+
+    std::time_t tiempo = std::time(0);
+    std::srand ( unsigned ( tiempo ) );
     for (i=0; i<6 ; i++){
 
         Individuo raton = Individuo(this->cities , this->maxRiesgo);
         this->residentes.push_back(raton);
     }
-*/
+
+    for (auto j : residentes){
+        for (auto k : j.tour){
+            std::cout << k.numero << "--";
+        }
+        std::cout << "\n";
+        for (auto l : j.retorno){
+            std::cout << l << "--";
+        }
+
+
+        std::cout << "\n____________________\n";
+    }
+
     file.close();
 };
