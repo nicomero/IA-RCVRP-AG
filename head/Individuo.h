@@ -1,6 +1,7 @@
 #ifndef INDIVIDUO_H
 #define INDIVIDUO_H
 #include <vector>
+#include <ctime>
 #include "Nodo.h"
 
 class Individuo{
@@ -9,7 +10,7 @@ public:
     std::vector<Nodo> tour;
     std::vector<int> retorno;
 
-    Individuo(std::vector<Nodo> cities, float maxRiesgo );
+    Individuo(std::vector<Nodo> cities, float maxRiesgo);
     float distancia(Nodo u, Nodo w);
     float riesgo(float riesgoPrev, Nodo u, Nodo w, int demandAcum);
     void mutar( float maxRiesgo );

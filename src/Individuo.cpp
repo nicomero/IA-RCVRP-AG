@@ -8,14 +8,13 @@
 #include "Nodo.h"
 #include "Individuo.h"
 
-Individuo::Individuo( std::vector<Nodo> cities, float maxRiesgo ) :calidad(), tour(), retorno(){
+Individuo::Individuo( std::vector<Nodo> cities, float maxRiesgo) :calidad(), tour(), retorno(){
 
     Nodo origen = cities[0];
     unsigned int i;
     float riesgoAc=0.0;
     int demandaAc=0;
 
-    std::srand ( unsigned ( std::time(0) ) );
     std::random_shuffle ( cities.begin()+1, cities.end() );
 
     tour.push_back(origen);
