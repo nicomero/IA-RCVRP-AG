@@ -62,6 +62,12 @@ Poblacion::Poblacion(std::string s) :n(), maxRiesgo(), cities(), residentes(){
         for (auto k : j.tour){
             std::cout << k.numero << "--";
         }
+        std::cout << "\n";
+        for (auto l : j.retorno){
+            std::cout << l << "--";
+        }
+
+
         std::cout << "\n____________________\n";
     }
 
