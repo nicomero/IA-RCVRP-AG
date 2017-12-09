@@ -39,7 +39,7 @@ Individuo::Individuo( std::vector<Nodo> cities, float maxRiesgo ) :calidad(), to
 
     tour.push_back(cities[i]);
     retorno.push_back(1);
-
+/*
     for (i=0 ; i < this->tour.size() ; i++){
         std::cout << this->tour[i].numero << "--";
     }
@@ -47,6 +47,8 @@ Individuo::Individuo( std::vector<Nodo> cities, float maxRiesgo ) :calidad(), to
     for (i=0 ; i < this->retorno.size() ; i++){
         std::cout << this->retorno[i] << "--";
     }
+    std::cout << "\n____________________________________\n";
+*/
 
     evaluar(maxRiesgo);
 };
@@ -94,6 +96,8 @@ void Individuo::mutar( float maxRiesgo ){
     for (unsigned i=0 ; i < this->retorno.size() ; i++){
         std::cout << this->retorno[i] << "--";
     }
+
+    std::cout << "\n*****************************************\n";
 
     evaluar( maxRiesgo );
 
