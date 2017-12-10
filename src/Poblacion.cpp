@@ -4,6 +4,7 @@
 #include <vector>
 #include <ctime>        // std::time
 #include <cstdlib>      // std::rand, std::srand
+#include <set>
 
 #include "Poblacion.h"
 #include "Individuo.h"
@@ -96,4 +97,33 @@ void Poblacion::mutarMasivo(){
     }
 
 
-}
+};
+
+void Poblacion::cruzar(Individuo &padre, Individuo &madre){
+
+    std::set<int> enPadre;
+    std::set<int> enMadre;
+
+    int lugar1 = 0;
+    int lugar2 = 0;
+
+    int lenP = (int) padre.tour.size();
+    int lenM = (int) madre.tour.size();
+
+    while(lugar1 == lugar2){
+
+        lugar1 = 1+ (std::rand()% (lenP-1));
+        lugar2 = 1+ (std::rand()% (lenM-1));
+    }
+
+    if (lugar1 > lugar2){
+
+        int temp = lugar1;
+        lugar1 = lugar2;
+        lugar2 = temp;
+    }
+
+
+    std::cout << "\n________" << lugar1 << "  "  << lugar2 <<"____________\n";
+
+};
