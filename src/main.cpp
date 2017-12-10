@@ -19,6 +19,10 @@ int main(void)
     Individuo eva = Individuo(mundo.cities, mundo.maxRiesgo);
     mundo.cruzar(adan, eva);
 
+    std::cout << "\ntour adan: ";
+    for (int i=0 ; i < adan.tour.size(); i++){
+        std::cout << adan.tour[i].numero << "--";
+    }
 /*
     std::cout << "calidad nico " << nico.calidad << '\n';
     std::cout << "\n_______________ \n";

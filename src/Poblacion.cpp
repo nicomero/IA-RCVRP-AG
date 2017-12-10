@@ -101,6 +101,30 @@ void Poblacion::mutarMasivo(){
 
 void Poblacion::cruzar(Individuo &padre, Individuo &madre){
 
+    unsigned int i;
+
+    std::cout << "\n+++++++++++++  cruzamiento  ++++++++++++++++++\n";
+
+    for (i=0 ; i < padre.tour.size(); i++){
+        std::cout << padre.tour[i].numero << "--";
+    }
+    std::cout << '\n';
+    for (i=0 ; i < padre.retorno.size() ; i++){
+        std::cout << padre.retorno[i] << "--";
+    }
+    std::cout << "\n                                                 \n";
+
+    for (i=0 ; i < madre.tour.size(); i++){
+        std::cout << madre.tour[i].numero << "--";
+    }
+    std::cout << '\n';
+    for (i=0 ; i < madre.retorno.size() ; i++){
+        std::cout << madre.retorno[i] << "--";
+    }
+    std::cout << "\n++++++++++++++++++++++++++++++++++++++\n";
+
+
+
     std::set<int> enPadre;
     std::set<int> enMadre;
 
@@ -123,7 +147,39 @@ void Poblacion::cruzar(Individuo &padre, Individuo &madre){
         lugar2 = temp;
     }
 
-
     std::cout << "\n________" << lugar1 << "  "  << lugar2 <<"____________\n";
+
+    for (i = 0; i<lugar1 ; i++){
+
+        enPadre.insert(padre.tour[i].numero);
+        enMadre.insert(madre.tour[i].numero);
+
+    }
+
+    for (i = lugar2; i<lenP ; i++){
+
+        enPadre.insert(padre.tour[i].numero);
+        enMadre.insert(madre.tour[i].numero);
+
+    }
+
+    for (auto j : enPadre){
+        std::cout << j << "." ;
+    }
+    std::cout << "\n";
+    for (auto j : enMadre){
+        std::cout << j << ".";
+    }
+
+
+    for (i = lugar1; i<lugar2 ; i++){
+
+        padre.tour[i] = madre.tour[i];
+    }
+
+    std::cout << "\n";
+    for (i=0 ; i < padre.tour.size(); i++){
+        std::cout << padre.tour[i].numero << "--";
+    }
 
 };
