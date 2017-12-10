@@ -73,3 +73,27 @@ Poblacion::Poblacion(std::string s) :n(), maxRiesgo(), cities(), residentes(){
 
     file.close();
 };
+
+void Poblacion::mutarMasivo(){
+
+    for (unsigned i=0; i < this->residentes.size(); i++){
+        this->residentes[i].mutar(this->maxRiesgo);
+    }
+
+    std::cout << "\n*************************************\n";
+
+    for (auto j : this->residentes){
+        for (auto k : j.tour){
+            std::cout << k.numero << "..";
+        }
+        std::cout << "\n";
+        for (auto l : j.retorno){
+            std::cout << l << "..";
+        }
+
+
+        std::cout << "\n____________________\n";
+    }
+
+
+}
