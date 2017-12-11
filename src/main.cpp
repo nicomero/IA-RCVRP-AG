@@ -13,8 +13,13 @@ int main(void)
     std::string s = "Instancias-RCVRP/SET O/16.txt";
     //std::string s = "Instancias-RCVRP/SET R/4_1_1.0.txt";
     Poblacion mundo = Poblacion(s);
-    mundo.mutarMasivo();
 
+    mundo.cruzaMasiva();
+
+    //mundo.mutarMasivo();
+
+
+/*
     Individuo adan = Individuo(mundo.cities, mundo.maxRiesgo);
     Individuo eva = Individuo(mundo.cities, mundo.maxRiesgo);
 
@@ -37,8 +42,7 @@ int main(void)
     for (int i=0 ; i < eva.tour.size(); i++){
         std::cout << eva.tour[i].numero << "--";
     }
-/*
-    std::cout << "calidad nico " << nico.calidad << '\n';
+/*    std::cout << "calidad nico " << nico.calidad << '\n';
     std::cout << "\n_______________ \n";
     nico.mutar(mundo.maxRiesgo);
     std::cout << "\n____________ \n";
