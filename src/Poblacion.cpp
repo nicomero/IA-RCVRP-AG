@@ -103,28 +103,6 @@ void Poblacion::cruzar(Individuo &padre, Individuo &madre){
 
     unsigned int i;
 
-    std::cout << "\n+++++++++++++  cruzamiento  ++++++++++++++++++\n";
-
-    for (i=0 ; i < padre.tour.size(); i++){
-        std::cout << padre.tour[i].numero << "--";
-    }
-    std::cout << '\n';
-    for (i=0 ; i < padre.retorno.size() ; i++){
-        std::cout << padre.retorno[i] << "--";
-    }
-    std::cout << "\n                                                 \n";
-
-    for (i=0 ; i < madre.tour.size(); i++){
-        std::cout << madre.tour[i].numero << "--";
-    }
-    std::cout << '\n';
-    for (i=0 ; i < madre.retorno.size() ; i++){
-        std::cout << madre.retorno[i] << "--";
-    }
-    std::cout << "\n++++++++++++++++++++++++++++++++++++++\n";
-
-
-
     std::set<int> enPadre;
     std::set<int> enMadre;
 
@@ -147,7 +125,7 @@ void Poblacion::cruzar(Individuo &padre, Individuo &madre){
         lugar2 = temp;
     }
 
-    std::cout << "\n________" << lugar1 << "  "  << lugar2 <<"____________\n";
+    std::cout << "\nENTRE: " << lugar1 << " Y " << lugar2 <<"\n";
 
     for (i = 0; i<lugar1 ; i++){
 
@@ -163,23 +141,56 @@ void Poblacion::cruzar(Individuo &padre, Individuo &madre){
 
     }
 
-    for (auto j : enPadre){
-        std::cout << j << "." ;
-    }
-    std::cout << "\n";
-    for (auto j : enMadre){
-        std::cout << j << ".";
-    }
-
+    std::vector<Nodo> cortePadre;
+    std::vector<Nodo> corteMadre;
 
     for (i = lugar1; i<lugar2 ; i++){
-
-        padre.tour[i] = madre.tour[i];
+        cortePadre.push_back(padre.tour[i]);
+        corteMadre.push_back(madre.tour[i]);
     }
 
-    std::cout << "\n";
-    for (i=0 ; i < padre.tour.size(); i++){
-        std::cout << padre.tour[i].numero << "--";
+    int j = 0;
+    int k = 0;
+
+    i=lugar1;
+    while (j < corteMadre.size()) {
+        if (enPadre.find(corteMadre[j].numero) == enPadre.end()){
+            padre.tour[i] = corteMadre[j];
+            enPadre.insert(padre.tour[i].numero);
+            i++;
+        }
+        j++;
+    }
+    while(k < cortePadre.size()){
+        if (enPadre.find(cortePadre[k].numero) == enPadre.end()){
+            padre.tour[i] = cortePadre[k];
+            enPadre.insert(padre.tour[i].numero);
+            i++;
+        }
+        k++;
+    }
+
+
+/////////////////////////////////////////
+    j = 0;
+    k = 0;
+
+    i=lugar1;
+    while (j < cortePadre.size()) {
+        if (enMadre.find(cortePadre[j].numero) == enPadre.end()){
+            madre.tour[i] = cortePadre[j];
+            enMadre.insert(madre.tour[i].numero);
+            i++;
+        }
+        j++;
+    }
+    while(k < corteMadre.size()){
+        if (enMadre.find(corteMadre[k].numero) == enMadre.end()){
+            madre.tour[i] = corteMadre[k];
+            enMadre.insert(madre.tour[i].numero);
+            i++;
+        }
+        k++;
     }
 
 };
