@@ -4,6 +4,7 @@
 #include <vector>
 #include <ctime>        // std::time
 #include <cstdlib>      // std::rand, std::srand
+#include <set>
 
 #include "Poblacion.h"
 #include "Individuo.h"
@@ -96,4 +97,100 @@ void Poblacion::mutarMasivo(){
     }
 
 
-}
+};
+
+void Poblacion::cruzar(Individuo &padre, Individuo &madre){
+
+    unsigned int i;
+
+    std::set<int> enPadre;
+    std::set<int> enMadre;
+
+    int lugar1 = 0;
+    int lugar2 = 0;
+
+    int lenP = (int) padre.tour.size();
+    int lenM = (int) madre.tour.size();
+
+    while(lugar1 == lugar2){
+
+        lugar1 = 1+ (std::rand()% (lenP-1));
+        lugar2 = 1+ (std::rand()% (lenM-1));
+    }
+
+    if (lugar1 > lugar2){
+
+        int temp = lugar1;
+        lugar1 = lugar2;
+        lugar2 = temp;
+    }
+
+    std::cout << "\nENTRE: " << lugar1 << " Y " << lugar2 <<"\n";
+
+    for (i = 0; i<lugar1 ; i++){
+
+        enPadre.insert(padre.tour[i].numero);
+        enMadre.insert(madre.tour[i].numero);
+
+    }
+
+    for (i = lugar2; i<lenP ; i++){
+
+        enPadre.insert(padre.tour[i].numero);
+        enMadre.insert(madre.tour[i].numero);
+
+    }
+
+    std::vector<Nodo> cortePadre;
+    std::vector<Nodo> corteMadre;
+
+    for (i = lugar1; i<lugar2 ; i++){
+        cortePadre.push_back(padre.tour[i]);
+        corteMadre.push_back(madre.tour[i]);
+    }
+
+    int j = 0;
+    int k = 0;
+
+    i=lugar1;
+    while (j < corteMadre.size()) {
+        if (enPadre.find(corteMadre[j].numero) == enPadre.end()){
+            padre.tour[i] = corteMadre[j];
+            enPadre.insert(padre.tour[i].numero);
+            i++;
+        }
+        j++;
+    }
+    while(k < cortePadre.size()){
+        if (enPadre.find(cortePadre[k].numero) == enPadre.end()){
+            padre.tour[i] = cortePadre[k];
+            enPadre.insert(padre.tour[i].numero);
+            i++;
+        }
+        k++;
+    }
+
+
+/////////////////////////////////////////
+    j = 0;
+    k = 0;
+
+    i=lugar1;
+    while (j < cortePadre.size()) {
+        if (enMadre.find(cortePadre[j].numero) == enPadre.end()){
+            madre.tour[i] = cortePadre[j];
+            enMadre.insert(madre.tour[i].numero);
+            i++;
+        }
+        j++;
+    }
+    while(k < corteMadre.size()){
+        if (enMadre.find(corteMadre[k].numero) == enMadre.end()){
+            madre.tour[i] = corteMadre[k];
+            enMadre.insert(madre.tour[i].numero);
+            i++;
+        }
+        k++;
+    }
+
+};

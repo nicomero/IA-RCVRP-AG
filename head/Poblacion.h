@@ -14,5 +14,6 @@ public:
 
     Poblacion(std::string s);
     void mutarMasivo();
+    void cruzar(Individuo &padre, Individuo &madre);
 };
 #endif
