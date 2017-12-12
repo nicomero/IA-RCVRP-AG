@@ -103,7 +103,7 @@ void Poblacion::mutarMasivo(){
 
 void Poblacion::cruzar(Individuo &padre, Individuo &madre){
 
-    unsigned int i;
+    int i;
 
     std::set<int> enPadre;  //Indica que nodos ya estan en el padre (para la cruza)
     std::set<int> enMadre;  //Indica que nodos ya estan en la madre (para la cruza)
@@ -152,8 +152,8 @@ void Poblacion::cruzar(Individuo &padre, Individuo &madre){
         corteMadre.push_back(madre.tour[i]);
     }
 
-    int j = 0;//recorre el area de corte que se quiere poner
-    int k = 0;//recorre el area de corte original
+    unsigned int j = 0;//recorre el area de corte que se quiere poner
+    unsigned int k = 0;//recorre el area de corte original
 
     i=lugar1;//recorre el area donde se quiere poner el are de corte
 
