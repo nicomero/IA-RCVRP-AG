@@ -53,7 +53,7 @@ Poblacion::Poblacion(std::string s) :n(), maxRiesgo(), cities(), residentes(){
 
     std::time_t tiempo = std::time(0);
     std::srand ( unsigned ( tiempo ) );
-    for (i=0; i<6 ; i++){
+    for (i=0; i<10 ; i++){
 
         Individuo raton = Individuo(this->cities , this->maxRiesgo);
         this->residentes.push_back(raton);
@@ -125,8 +125,6 @@ void Poblacion::cruzar(Individuo &padre, Individuo &madre){
         lugar2 = temp;
     }
 
-    std::cout << "\nENTRE: " << lugar1 << " Y " << lugar2 <<"\n";
-
     for (i = 0; i<lugar1 ; i++){
 
         enPadre.insert(padre.tour[i].numero);
@@ -170,8 +168,6 @@ void Poblacion::cruzar(Individuo &padre, Individuo &madre){
         k++;
     }
 
-
-/////////////////////////////////////////
     j = 0;
     k = 0;
 
@@ -191,6 +187,87 @@ void Poblacion::cruzar(Individuo &padre, Individuo &madre){
             i++;
         }
         k++;
+    }
+
+};
+
+void Poblacion::cruzaMasiva(){
+
+
+    std::cout << "\n***CRUZA MASIVA SE VIENE*\n";
+
+
+    std::cout << "\n**********resultado**************\n";
+
+    for (auto j : this->residentes){
+        for (auto k : j.tour){
+            std::cout << k.numero << "..";
+        }
+        std::cout << "\n";
+        for (auto l : j.retorno){
+            std::cout << l << "..";
+        }
+
+
+        std::cout << "\n____________________\n";
+    }
+
+
+    std::vector<Individuo> nextGen;
+    Individuo best = this->residentes[0];
+    Individuo worst = this->residentes[1];
+
+    for(auto i: this->residentes){
+        //nextGen.push_back(i);
+        if (i.calidad < best.calidad){
+            best = i;
+        }
+        if (i.calidad > worst.calidad){
+            worst = i;
+        }
+    }
+
+    nextGen.push_back(best);
+    nextGen.push_back(worst);
+
+    int largo = (int) this->residentes.size();
+
+    for (int i = 0; i < 4; i++) {
+        int lugar1 = (std::rand()% (largo));
+        int lugar2 = lugar1;
+
+        while (lugar2 == lugar1) {
+
+            lugar2 = (std::rand()% (largo));
+        }
+
+        Individuo padre = this->residentes[lugar1];
+        Individuo madre = this->residentes[lugar2];
+
+        cruzar(padre, madre);
+
+        nextGen.push_back(padre);
+        nextGen.push_back(madre);
+    }
+
+    for (int i = 0; i < largo; i++) {
+        this->residentes[i]=nextGen[i];
+    }
+
+
+    std::cout << "\n**********resultado**************\n";
+
+    for (auto j : this->residentes){
+        for (auto k : j.tour){
+            std::cout << k.numero << "..";
+        }
+        std::cout << "\n";
+        for (auto l : j.retorno){
+            std::cout << l << "..";
+        }
+
+
+        std::cout << "\n____________________\n";
     }
 
 };
