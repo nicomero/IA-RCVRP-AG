@@ -197,6 +197,9 @@ void Poblacion::cruzar(Individuo &padre, Individuo &madre){
         k++;
     }
 
+    padre.evaluar(this->maxRiesgo);
+    madre.evaluar(this->maxRiesgo);
+
 };
 
 void Poblacion::cruzaMasiva(){
