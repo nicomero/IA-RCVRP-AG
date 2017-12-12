@@ -148,6 +148,6 @@ void Individuo::evaluar( float maxRiesgo ){
     }
 
     this->calidad = distAc + deltaRiesgo + autos;
-    std::cout << this->calidad <<"         <----------------CALIDAD\n";
+    std::cout << distAc <<"         <----------------DISTANCIA\n";
 
 };
