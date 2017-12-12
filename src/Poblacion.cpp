@@ -201,6 +201,17 @@ void Poblacion::cruzar(Individuo &padre, Individuo &madre){
         k++;
     }
 
+    int lenRetorno = (int) padre.retorno.size();
+    int corte1 = (std::rand()% (n-1));
+
+    int temp;
+    for (int z = corte1; z < lenRetorno ; z++) {
+        temp = padre.retorno[z];
+        padre.retorno[z] = madre.retorno[z];
+        madre.retorno[z] = temp;
+
+    }
+
     padre.evaluar(this->maxRiesgo);
     madre.evaluar(this->maxRiesgo);
 
