@@ -100,8 +100,8 @@ void Individuo::evaluar( float maxRiesgo ){
     float distAc;   //distancia que se va acumulando
     int demandAc=0; //demanda que se va acumulando
     float autos=1;  //ccantidad de autos utilizados
-    this->miniRiesgos.clear();
-    this->miniDistancias.clear();
+    this->miniRiesgos.clear();//limpiar el vector
+    this->miniDistancias.clear();//limpiar el vector
     unsigned int i=1;
 
     /*distancia desde el almacen al primer nodo*/
@@ -114,27 +114,30 @@ void Individuo::evaluar( float maxRiesgo ){
         demandAc += this->tour[i].demanda;
 
         if(this->retorno[i-1] == 1){    //si vuelvo al almacen, calcular lo necesario
-            distAc += distancia(this->tour[i], this->tour[0]);
 
+            distAc += distancia(this->tour[i], this->tour[0]);
             riesgoAc += riesgo(riesgoAc, this->tour[i], this->tour[0], demandAc);
-            if (riesgoAc >maxRiesgo){
+
+            if (riesgoAc >maxRiesgo){   //si se sobrepasa el riesgo
                 deltaRiesgo += riesgoAc-maxRiesgo;
             }
+
+            /*agrego al vector y reinicio todo*/
             this->miniDistancias.push_back(distAc);
             this->miniRiesgos.push_back(riesgoAc);
             riesgoAc =0;
             demandAc = 0;
             autos += 1;
             distAc = distancia(this->tour[0], this->tour[i+1]);
-
         }
-        else{   //si no vuelvo, tomarr la siguiente ciudad
+        else{   //si no vuelvo, tomar la siguiente ciudad
+
             distAc = distancia(this->tour[i], this->tour[i+1]);
             riesgoAc += riesgo(riesgoAc, this->tour[i], this->tour[i+1], demandAc);
         }
     }
 
-
+    /*agrego el ultimo nodo*/
     demandAc += this->tour[i].demanda;
     distAc += distancia(this->tour[i], this->tour[0]);
     riesgoAc += riesgo(riesgoAc, this->tour[i], this->tour[0], demandAc);
@@ -145,6 +148,7 @@ void Individuo::evaluar( float maxRiesgo ){
         deltaRiesgo += riesgoAc-maxRiesgo;
     }
 
+    /*veo si la solucion es factible*/
     if(deltaRiesgo > 0){
         this->factible = false;
     }
@@ -152,6 +156,7 @@ void Individuo::evaluar( float maxRiesgo ){
         this->factible = true;
     }
 
+    /*calculo la distancia total*/
     distAc=0;
     for (auto z: this->miniDistancias){
         distAc += z;

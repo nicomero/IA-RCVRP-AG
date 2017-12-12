@@ -13,6 +13,7 @@ int main(void)
     //std::string s = "Instancias-RCVRP/SET R/6_1_1.0.txt";
     Poblacion mundo = Poblacion(s);
 
+    /*ocurre la magia*/
     for (int veces = 0; veces < 10; veces++) {
 
         mundo.cruzaMasiva();
@@ -29,7 +30,7 @@ int main(void)
     }
 
 
-    Individuo best = mundo.residentes[0];   //elitismo mejor
+    Individuo best = mundo.residentes[0];   //buscar al mejor
 
     for(auto i: mundo.residentes){
         if (i.calidad < best.calidad){  //mayor calidad -- peor solucion
@@ -49,8 +50,8 @@ int main(void)
     }
     std::cout << "\n";
     file << autos << "\n";
-    /*veo las rutas, sus distancias y su riesgo*/
 
+    /*veo las rutas, sus distancias y su riesgo*/
     std::string ruta = "0->";
     autos = 0;
     for (unsigned int j=1; j<best.tour.size(); j++){
