@@ -9,8 +9,8 @@
 int main(void)
 {
 
-    //std::string s = "Instancias-RCVRP/SET O/16.txt";
-    std::string s = "Instancias-RCVRP/SET R/4_1_1.0.txt";
+    std::string s = "Instancias-RCVRP/SET O/16.txt";
+    //std::string s = "Instancias-RCVRP/SET R/6_1_1.0.txt";
     Poblacion mundo = Poblacion(s);
 
     for (int veces = 0; veces < 10; veces++) {
@@ -47,6 +47,7 @@ int main(void)
         autos +=i;
         std::cout << i << "_";
     }
+    std::cout << "\n";
     file << autos << "\n";
     /*veo las rutas, sus distancias y su riesgo*/
 
@@ -70,10 +71,6 @@ int main(void)
         }
     }
     file.close();
-
-    for (auto z: best.miniDistancias){
-        std::cout << "\n" << autos << "\n";
-    }
 
     std::cout << "\n" << best.factible << "\n";
 
