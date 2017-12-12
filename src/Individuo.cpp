@@ -27,14 +27,15 @@ Individuo::Individuo( std::vector<Nodo> cities, float maxRiesgo) :calidad(), tou
         riesgoAc += riesgo(riesgoAc, cities[i], cities[i+1], demandaAc);
 
         if (riesgoAc > maxRiesgo){
+
             this->retorno.push_back(1);
             demandaAc = 0;
             riesgoAc = 0;
         }
         else{
+
             this->retorno.push_back(0);
         }
-
     }
 
     /*agregar ultimo punto y volver al almacen*/
@@ -80,9 +81,11 @@ void Individuo::mutar( float maxRiesgo ){
 
         if( r < 0.21 ){
             if(retorno[i] == 0){
+
                 retorno[i] = 1;
             }
             else{
+
                 retorno[i] = 0;
             }
         }
@@ -119,6 +122,7 @@ void Individuo::evaluar( float maxRiesgo ){
             riesgoAc += riesgo(riesgoAc, this->tour[i], this->tour[0], demandAc);
 
             if (riesgoAc >maxRiesgo){   //si se sobrepasa el riesgo
+
                 deltaRiesgo += riesgoAc-maxRiesgo;
             }
 
@@ -145,20 +149,24 @@ void Individuo::evaluar( float maxRiesgo ){
     this->miniRiesgos.push_back(riesgoAc);
 
     if (riesgoAc >maxRiesgo){
+
         deltaRiesgo += riesgoAc-maxRiesgo;
     }
 
     /*veo si la solucion es factible*/
     if(deltaRiesgo > 0){
+
         this->factible = false;
     }
     else{
+
         this->factible = true;
     }
 
     /*calculo la distancia total*/
     distAc=0;
     for (auto z: this->miniDistancias){
+
         distAc += z;
     }
     this->calidad = distAc + deltaRiesgo + autos;

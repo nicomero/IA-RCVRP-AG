@@ -9,12 +9,13 @@
 int main(void)
 {
 
-    std::string s = "Instancias-RCVRP/SET O/16.txt";
+    //std::string s = "Instancias-RCVRP/SET O/16.txt";
+    std::string s = "Instancias-RCVRP/SET S/273.txt";
     //std::string s = "Instancias-RCVRP/SET R/6_1_1.0.txt";
     Poblacion mundo = Poblacion(s);
 
     /*ocurre la magia*/
-    for (int veces = 0; veces < 10; veces++) {
+    for (int veces = 0; veces < 1; veces++) {
 
         mundo.cruzaMasiva();
 
@@ -26,6 +27,7 @@ int main(void)
 
     std::ofstream file{"INSTANCIA.out", std::ofstream::out};
     if (!file.good()){
+        std::cout << "PROBLEMOM";
         return 1;
     }
 
