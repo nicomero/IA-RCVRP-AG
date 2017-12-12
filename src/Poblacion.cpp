@@ -158,7 +158,8 @@ void Poblacion::cruzar(Individuo &padre, Individuo &madre){
     i=lugar1;//recorre el area donde se quiere poner el are de corte
 
     /*Alterar al padre*/
-    while (j < corteMadre.size()) {
+    while (j < corteMadre.size()) {//mientras pueda agregar de la otra area
+        /*Si el nodo no se encuentra en el individuo*/
         if (enPadre.find(corteMadre[j].numero) == enPadre.end()){
             padre.tour[i] = corteMadre[j];
             enPadre.insert(padre.tour[i].numero);
@@ -166,7 +167,8 @@ void Poblacion::cruzar(Individuo &padre, Individuo &madre){
         }
         j++;
     }
-    while(k < cortePadre.size()){
+    while(k < cortePadre.size()){//mientras pueda agregar de la area propia
+        /*Si el nodo no se encuentra en el individuo*/
         if (enPadre.find(cortePadre[k].numero) == enPadre.end()){
             padre.tour[i] = cortePadre[k];
             enPadre.insert(padre.tour[i].numero);
@@ -180,7 +182,8 @@ void Poblacion::cruzar(Individuo &padre, Individuo &madre){
 
     i=lugar1;
     /*Alterar a la madre*/
-    while (j < cortePadre.size()) {
+    while (j < cortePadre.size()) {//mientras pueda agregar de la otra area
+        /*Si el nodo no se encuentra en el individuo*/
         if (enMadre.find(cortePadre[j].numero) == enPadre.end()){
             madre.tour[i] = cortePadre[j];
             enMadre.insert(madre.tour[i].numero);
@@ -188,7 +191,8 @@ void Poblacion::cruzar(Individuo &padre, Individuo &madre){
         }
         j++;
     }
-    while(k < corteMadre.size()){
+    while(k < corteMadre.size()){//mientras pueda agregar de la area propia
+        /*Si el nodo no se encuentra en el individuo*/
         if (enMadre.find(corteMadre[k].numero) == enMadre.end()){
             madre.tour[i] = corteMadre[k];
             enMadre.insert(madre.tour[i].numero);
