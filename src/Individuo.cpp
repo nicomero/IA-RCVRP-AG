@@ -84,9 +84,24 @@ void Individuo::mutar( float maxRiesgo ){
         std::cout << this->tour[i].numero << "--";
     }
 */
+    std::cout << lugar1 << " " << lugar2 << "$$$$$$$$$$$$$$$$$$$$$$$$$$\n";
     /*MUTACION PUNTOS RETORNO*/
     n = (int) this->retorno.size();
     lugar1 = (std::rand()% (n-1));
+    float r;
+
+    for (int i = lugar1; i < n; i++) {
+
+        r = ((float) std::rand() / (RAND_MAX));
+
+        if(retorno[i] == 0){
+            retorno[i] = 1;
+        }
+        else{
+            retorno[i] = 0;
+        }
+
+    }
 
     if(retorno[lugar1] == 0){
         retorno[lugar1] = 1;
