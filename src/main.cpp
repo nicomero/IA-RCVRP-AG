@@ -8,14 +8,16 @@
 
 int main(void)
 {
-
+    std::string s;
+    std::cout << "Ingrese archivo a analizar\n";
+    getline(std::cin, s);
     //std::string s = "Instancias-RCVRP/SET O/16.txt";
-    std::string s = "Instancias-RCVRP/SET S/273.txt";
+    //std::string s = "Instancias-RCVRP/SET V/RISK LEVEL 1.0/RISK LEVEL 1.0/22.txt";
     //std::string s = "Instancias-RCVRP/SET R/6_1_1.0.txt";
     Poblacion mundo = Poblacion(s);
 
     /*ocurre la magia*/
-    for (int veces = 0; veces < 1; veces++) {
+    for (int veces = 0; veces < 100; veces++) {
 
         mundo.cruzaMasiva();
 
