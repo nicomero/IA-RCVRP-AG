@@ -77,19 +77,16 @@ void Individuo::mutar( float maxRiesgo ){
     int lugar2 = 1+ (std::rand()% (n-1));
 
     iter_swap(this->tour.begin() + lugar1, this->tour.begin() + lugar2);//hacer swap
-/*
-    for (unsigned i=0 ; i < this->tour.size() ; i++){
-        std::cout << this->tour[i].numero << "--";
-    }
-*/
+
     /*MUTACION PUNTOS RETORNO*/
     n = (int) this->retorno.size();
     lugar1 = (std::rand()% (n-1));
     float r;
 
-    for (int i = lugar1; i < n; i++) {
+    for (int i = lugar1; i < n-1; i++) {
 
         r = ((float) std::rand() / (RAND_MAX));
+
         if( r < 0.21 ){
             if(retorno[i] == 0){
                 retorno[i] = 1;
@@ -100,22 +97,6 @@ void Individuo::mutar( float maxRiesgo ){
         }
     }
 
-    if(retorno[lugar1] == 0){
-        retorno[lugar1] = 1;
-    }
-    else{
-        retorno[lugar1] = 0;
-    }
-
-/**
-    std::cout << "\n";
-
-    for (unsigned i=0 ; i < this->retorno.size() ; i++){
-        std::cout << this->retorno[i] << "--";
-    }
-
-    std::cout << "\n*****************************************\n";
-**/
     /*recalcular calidad*/
     evaluar( maxRiesgo );
 
