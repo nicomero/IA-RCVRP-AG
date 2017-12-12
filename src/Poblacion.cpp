@@ -201,6 +201,17 @@ void Poblacion::cruzar(Individuo &padre, Individuo &madre){
         k++;
     }
 
+    int lenRetorno = (int) padre.retorno.size();
+    int corte1 = (std::rand()% (n-1));
+
+    int temp;
+    for (int z = corte1; z < lenRetorno ; z++) {
+        temp = padre.retorno[z];
+        padre.retorno[z] = madre.retorno[z];
+        madre.retorno[z] = temp;
+
+    }
+
     padre.evaluar(this->maxRiesgo);
     madre.evaluar(this->maxRiesgo);
 
@@ -252,6 +263,7 @@ void Poblacion::cruzaMasiva(){
     for (int i = 0; i < 4; i++) {
 
         /*obtener 1 padre y 1 madre*/
+        /*2-torneo para padre*/
         int lugar1 = (std::rand()% (largo));
         int lugar2 = lugar1;
 
@@ -260,7 +272,22 @@ void Poblacion::cruzaMasiva(){
             lugar2 = (std::rand()% (largo));
         }
 
+        if (this->residentes[lugar1].calidad > this->residentes[lugar2].calidad){
+            lugar1 = lugar2;
+        }
         Individuo padre = this->residentes[lugar1];
+
+        /*2-torneo para madre*/
+        int lugar3 = (std::rand()% (largo));;
+        while (lugar3 == lugar1 || lugar3==lugar2 || lugar2 == lugar1) {
+            lugar2 = (std::rand()% (largo));
+            lugar3 = (std::rand()% (largo));
+        }
+
+        if (this->residentes[lugar2].calidad > this->residentes[lugar3].calidad){
+            lugar2 = lugar3;
+        }
+
         Individuo madre = this->residentes[lugar2];
 
         /*cruzar y agregar a la siguiente generacion*/
