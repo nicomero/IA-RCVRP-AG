@@ -9,6 +9,9 @@ public:
     float calidad; //calida del individuo (mas calidad -> peor solucion)
     std::vector<Nodo> tour; //orden en que recorre los nodos
     std::vector<int> retorno;   //puntos en los que vuelve al almacen
+    std::vector<float> miniDistancias;//distancia recorrida por cada subtour
+    std::vector<float> miniRiesgos;//riesgo de cada subtour
+    bool factible;//indica si es factible
 
     Individuo(std::vector<Nodo> cities, float maxRiesgo);//constructor
     float distancia(Nodo u, Nodo w);    //calcula la distancia entre 2 nodos
