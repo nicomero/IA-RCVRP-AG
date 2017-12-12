@@ -16,7 +16,7 @@ int main(void)
 
     mundo.cruzaMasiva();
 
-    //mundo.mutarMasivo();
+    mundo.mutarMasivo();
 
 
 /*
