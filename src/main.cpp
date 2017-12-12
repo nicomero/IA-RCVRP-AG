@@ -16,7 +16,7 @@ int main(void)
 
     mundo.cruzaMasiva();
 
-    //mundo.mutarMasivo();
+    mundo.mutarMasivo();
 
 
 /*
@@ -42,7 +42,7 @@ int main(void)
     for (int i=0 ; i < eva.tour.size(); i++){
         std::cout << eva.tour[i].numero << "--";
     }
-/*    std::cout << "calidad nico " << nico.calidad << '\n';
+    std::cout << "calidad nico " << nico.calidad << '\n';
     std::cout << "\n_______________ \n";
     nico.mutar(mundo.maxRiesgo);
     std::cout << "\n____________ \n";

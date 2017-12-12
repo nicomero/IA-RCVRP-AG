@@ -15,10 +15,11 @@ Individuo::Individuo( std::vector<Nodo> cities, float maxRiesgo) :calidad(), tou
     float riesgoAc=0.0;
     int demandaAc=0;
 
-    std::random_shuffle ( cities.begin()+1, cities.end() );
+    std::random_shuffle ( cities.begin()+1, cities.end() ); //desordeno los nodos
 
-    tour.push_back(origen);
+    tour.push_back(origen); //agregar el almacen a la ruta
 
+    /*agrear los nodos desordenados y repara ruta cuando se pasa el riesgo maximo*/
     for (i=1 ; i < cities.size()-1 ; i++){
 
         this->tour.push_back(cities[i]);
@@ -36,6 +37,7 @@ Individuo::Individuo( std::vector<Nodo> cities, float maxRiesgo) :calidad(), tou
 
     }
 
+    /*agregar ultimo punto y volver al almacen*/
     tour.push_back(cities[i]);
     retorno.push_back(1);
 /*
@@ -49,6 +51,7 @@ Individuo::Individuo( std::vector<Nodo> cities, float maxRiesgo) :calidad(), tou
     std::cout << "\n____________________________________\n";
 */
 
+    /*evaluar calidad de ruta*/
     evaluar(maxRiesgo);
 };
 
@@ -71,15 +74,17 @@ void Individuo::mutar( float maxRiesgo ){
 
     std::srand ( unsigned ( std::time(0) ) );
 
+    /*calcular puntos para swap*/
     int lugar1 = 1+ (std::rand()% (n-1));
     int lugar2 = 1+ (std::rand()% (n-1));
 
-    iter_swap(this->tour.begin() + lugar1, this->tour.begin() + lugar2);
+    iter_swap(this->tour.begin() + lugar1, this->tour.begin() + lugar2);//hacer swap
 /*
     for (unsigned i=0 ; i < this->tour.size() ; i++){
         std::cout << this->tour[i].numero << "--";
     }
 */
+    /*MUTACION PUNTOS RETORNO*/
     n = (int) this->retorno.size();
     lugar1 = (std::rand()% (n-1));
 
@@ -99,25 +104,29 @@ void Individuo::mutar( float maxRiesgo ){
 
     std::cout << "\n*****************************************\n";
 **/
+    /*recalcular calidad*/
     evaluar( maxRiesgo );
 
 };
 
 void Individuo::evaluar( float maxRiesgo ){
 
-    float deltaRiesgo=0;
-    float riesgoAc=0;
-    float distAc;
-    int demandAc=0;
-    float autos=1;
+    float deltaRiesgo=0;    //cuanto riesgo se pasa la solucion de lo permitido
+    float riesgoAc=0;   //riesgo que se va acumulando en la ruta
+    float distAc;   //distancia que se va acumulando
+    int demandAc=0; //demanda que se va acumulando
+    float autos=1;  //ccantidad de autos utilizados
     unsigned int i=1;
 
+    /*distancia desde el almacen al primer nodo*/
     distAc = distancia(this->tour[0], this->tour[1]);
 
+    /*recorrer el tour y los puntos de retorno*/
     for (i=1 ; i < this->tour.size()-1 ; i++){
 
         demandAc += this->tour[i].demanda;
-        if(this->retorno[i-1] == 1){
+
+        if(this->retorno[i-1] == 1){    //si vuelvo al almacen, calcular lo necesario
             distAc = distancia(this->tour[i], this->tour[0]);
             riesgoAc += riesgo(riesgoAc, this->tour[i], this->tour[0], demandAc);
             if (riesgoAc >maxRiesgo){
