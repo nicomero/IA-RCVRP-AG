@@ -9,47 +9,70 @@
 int main(void)
 {
 
-    //Nodo antiago = Nodo(0, 0.0, 0.0, 0);
     std::string s = "Instancias-RCVRP/SET O/16.txt";
     //std::string s = "Instancias-RCVRP/SET R/4_1_1.0.txt";
     Poblacion mundo = Poblacion(s);
 
-    mundo.cruzaMasiva();
+    for (int veces = 0; veces < 10; veces++) {
 
-    mundo.mutarMasivo();
+        mundo.cruzaMasiva();
 
+        mundo.mutarMasivo();
 
-/*
-    Individuo adan = Individuo(mundo.cities, mundo.maxRiesgo);
-    Individuo eva = Individuo(mundo.cities, mundo.maxRiesgo);
-
-    std::cout << "\nANTES tour adan: ";
-    for (int i=0 ; i < adan.tour.size(); i++){
-        std::cout << adan.tour[i].numero << "--";
-    }
-    std::cout << "\nANTES tour eva: ";
-    for (int i=0 ; i < eva.tour.size(); i++){
-        std::cout << eva.tour[i].numero << "--";
     }
 
-    mundo.cruzar(adan, eva);
+    /********* escribir en archivo *********/
 
-    std::cout << "\nDESPUES tour adan: ";
-    for (int i=0 ; i < adan.tour.size(); i++){
-        std::cout << adan.tour[i].numero << "--";
+    std::ofstream file{"INSTANCIA.out", std::ofstream::out};
+    if (!file.good()){
+        return 1;
     }
-    std::cout << "\nDESPUES tour eva: ";
-    for (int i=0 ; i < eva.tour.size(); i++){
-        std::cout << eva.tour[i].numero << "--";
+
+
+    Individuo best = mundo.residentes[0];   //elitismo mejor
+
+    for(auto i: mundo.residentes){
+        if (i.calidad < best.calidad){  //mayor calidad -- peor solucion
+            best = i;
+        }
     }
-    std::cout << "calidad nico " << nico.calidad << '\n';
-    std::cout << "\n_______________ \n";
-    nico.mutar(mundo.maxRiesgo);
-    std::cout << "\n____________ \n";
-    std::cout << "numero nodo " << antiago.numero << '\n';
-    std::cout << "calidad nico " << nico.calidad << '\n';
-    std::cout << "maximo riesgo " << mundo.maxRiesgo;
-*/
+
+    /*calculo la cantidad de autos*/
+    for(auto i: best.tour){
+        std::cout << i.numero << "_";
+    }
+    std::cout << "\n";
+    int autos = 0;
+    for(auto i: best.retorno){
+        autos +=i;
+        std::cout << i << "_";
+    }
+    file << autos << "\n";
+    /*veo las rutas, sus distancias y su riesgo*/
+
+    std::string ruta = "0->";
+    autos = 0;
+    for (unsigned int j=1; j<best.tour.size(); j++){
+
+        ruta+= std::to_string(best.tour[j].numero) ;
+        ruta+= "->";
+
+        if (best.retorno[j-1]==1){
+
+            ruta+= "0";
+            ruta+= "\n";
+
+            if (j < best.tour.size()-1){
+                file << best.miniDistancias[autos] << " " << best.miniRiesgos[autos] << " " << ruta;
+                ruta = "0->";
+            }
+            autos++;
+        }
+    }
+    file << best.miniDistancias[autos] << " " << best.miniRiesgos[autos] << " " << ruta;
+    file.close();
+
+    std::cout << "\n" << best.factible << "\n";
 
     return 0;
 }
