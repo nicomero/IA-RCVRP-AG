@@ -8,7 +8,7 @@
 #include "Nodo.h"
 #include "Individuo.h"
 
-Individuo::Individuo( std::vector<Nodo> cities, float maxRiesgo) :calidad(), tour(), retorno(){
+Individuo::Individuo( std::vector<Nodo> cities, float maxRiesgo) :calidad(), tour(), retorno(), miniDistancias(), miniRiesgos(), factible(){
 
     Nodo origen = cities[0];
     unsigned int i;
@@ -40,16 +40,6 @@ Individuo::Individuo( std::vector<Nodo> cities, float maxRiesgo) :calidad(), tou
     /*agregar ultimo punto y volver al almacen*/
     tour.push_back(cities[i]);
     retorno.push_back(1);
-/*
-    for (i=0 ; i < this->tour.size() ; i++){
-        std::cout << this->tour[i].numero << "--";
-    }
-    std::cout << '\n';
-    for (i=0 ; i < this->retorno.size() ; i++){
-        std::cout << this->retorno[i] << "--";
-    }
-    std::cout << "\n____________________________________\n";
-*/
 
     /*evaluar calidad de ruta*/
     evaluar(maxRiesgo);
@@ -109,6 +99,8 @@ void Individuo::evaluar( float maxRiesgo ){
     float distAc;   //distancia que se va acumulando
     int demandAc=0; //demanda que se va acumulando
     float autos=1;  //ccantidad de autos utilizados
+    this->miniRiesgos.clear();
+    this->miniDistancias.clear();
     unsigned int i=1;
 
     /*distancia desde el almacen al primer nodo*/
@@ -120,16 +112,19 @@ void Individuo::evaluar( float maxRiesgo ){
         demandAc += this->tour[i].demanda;
 
         if(this->retorno[i-1] == 1){    //si vuelvo al almacen, calcular lo necesario
-            distAc = distancia(this->tour[i], this->tour[0]);
+            distAc += distancia(this->tour[i], this->tour[0]);
             riesgoAc += riesgo(riesgoAc, this->tour[i], this->tour[0], demandAc);
             if (riesgoAc >maxRiesgo){
                 deltaRiesgo += riesgoAc-maxRiesgo;
             }
+            this->miniDistancias.push_back(distAc);
+            this->miniRiesgos.push_back(riesgoAc);
             riesgoAc =0;
             demandAc = 0;
             autos += 1;
+            distAc += distancia(this->tour[0], this->tour[i+1]);
         }
-        else{
+        else{   //si no vuelvo, tomarr la siguiente ciudad
             distAc = distancia(this->tour[i], this->tour[i+1]);
             riesgoAc += riesgo(riesgoAc, this->tour[i], this->tour[i+1], demandAc);
         }
@@ -138,10 +133,21 @@ void Individuo::evaluar( float maxRiesgo ){
     demandAc += this->tour[i].demanda;
     distAc = distancia(this->tour[i], this->tour[0]);
     riesgoAc += riesgo(riesgoAc, this->tour[i], this->tour[0], demandAc);
+    this->miniDistancias.push_back(distAc);
+    this->miniRiesgos.push_back(riesgoAc);
+
     if (riesgoAc >maxRiesgo){
         deltaRiesgo += riesgoAc-maxRiesgo;
     }
 
+    if(deltaRiesgo > 0){
+        this->factible = false;
+    }
+    else{
+        this->factible = true;
+    }
+
     this->calidad = distAc + deltaRiesgo + autos;
+    std::cout << this->calidad <<"         <----------------CALIDAD\n";
 
 };
