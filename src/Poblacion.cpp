@@ -49,10 +49,10 @@ Poblacion::Poblacion(std::string s) :n(), maxRiesgo(), cities(), residentes(){
         this->cities.push_back(ciudad);
     }
 
-    /*Genero poblacion de 10 individuos*/
+    /*Genero poblacion de individuos*/
     std::time_t tiempo = std::time(0);
     std::srand ( unsigned ( tiempo ) );
-    for (i=0; i<100 ; i++){
+    for (i=0; i<500 ; i++){
 
         Individuo raton = Individuo(this->cities , this->maxRiesgo);
         this->residentes.push_back(raton);
@@ -204,13 +204,23 @@ void Poblacion::cruzaMasiva(){
     for(auto i: this->residentes){
 
         //nextGen.push_back(i);
-        if (i.calidad < best.calidad){  //mayor calidad -- peor solucion
-
+        if (i.factible && !best.factible){
             best = i;
+            std::cout << "encontro algo factible" ;
         }
-        if (i.calidad > worst.calidad){  //mayor calidad -- peor solucion
+        else if (!i.factible && best.factible){
+            (void)0;
+        }
+        else{
 
-            worst = i;
+            if (i.calidad < best.calidad){  //mayor calidad -- peor solucion
+
+                best = i;
+            }
+            if (i.calidad > worst.calidad){  //mayor calidad -- peor solucion
+
+                worst = i;
+            }
         }
     }
 

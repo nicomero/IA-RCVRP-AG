@@ -17,7 +17,7 @@ int main(void)
     Poblacion mundo = Poblacion(s);
 
     /*ocurre la magia*/
-    for (int veces = 0; veces < 100; veces++) {
+    for (int veces = 0; veces < 500; veces++) {
 
         mundo.cruzaMasiva();
 
