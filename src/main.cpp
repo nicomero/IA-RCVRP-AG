@@ -8,12 +8,16 @@
 
 int main(void)
 {
-
+    std::string s;
+    std::cout << "Ingrese archivo a analizar\n";
+    getline(std::cin, s);
     //std::string s = "Instancias-RCVRP/SET O/16.txt";
-    std::string s = "Instancias-RCVRP/SET R/4_1_1.0.txt";
+    //std::string s = "Instancias-RCVRP/SET V/RISK LEVEL 1.0/RISK LEVEL 1.0/22.txt";
+    //std::string s = "Instancias-RCVRP/SET R/6_1_1.0.txt";
     Poblacion mundo = Poblacion(s);
 
-    for (int veces = 0; veces < 10; veces++) {
+    /*ocurre la magia*/
+    for (int veces = 0; veces < 500; veces++) {
 
         mundo.cruzaMasiva();
 
@@ -25,11 +29,12 @@ int main(void)
 
     std::ofstream file{"INSTANCIA.out", std::ofstream::out};
     if (!file.good()){
+        std::cout << "PROBLEMOM";
         return 1;
     }
 
 
-    Individuo best = mundo.residentes[0];   //elitismo mejor
+    Individuo best = mundo.residentes[0];   //buscar al mejor
 
     for(auto i: mundo.residentes){
         if (i.calidad < best.calidad){  //mayor calidad -- peor solucion
@@ -47,9 +52,10 @@ int main(void)
         autos +=i;
         std::cout << i << "_";
     }
+    std::cout << "\n";
     file << autos << "\n";
-    /*veo las rutas, sus distancias y su riesgo*/
 
+    /*veo las rutas, sus distancias y su riesgo*/
     std::string ruta = "0->";
     autos = 0;
     for (unsigned int j=1; j<best.tour.size(); j++){
@@ -70,10 +76,6 @@ int main(void)
         }
     }
     file.close();
-
-    for (auto z: best.miniDistancias){
-        std::cout << "\n" << autos << "\n";
-    }
 
     std::cout << "\n" << best.factible << "\n";
 
