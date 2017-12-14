@@ -77,7 +77,7 @@ void Individuo::mutar( float maxRiesgo ){
 
     for (int i = lugar1; i < n-1; i++) {
 
-        r = ((float) std::rand() / (RAND_MAX));
+        r = (float)std::rand() / (float)RAND_MAX;
 
         if( r < 0.21 ){
             if(retorno[i] == 0){
