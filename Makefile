@@ -34,10 +34,10 @@ CFLAGS = -O2 -Wall -Weffc++ -std=gnu++11 -Wextra -Waggregate-return \
 	-Wcast-align -Wcast-qual -Wchar-subscripts -Wcomment -Wconversion \
 	-Wdisabled-optimization -Wfloat-equal -Wformat -Wformat=2 \
 	-Wformat-nonliteral -Wformat-security -Wformat-y2k -Wimport \
-	-Winit-self -Winline -Winvalid-pch -Wunsafe-loop-optimizations \
+	-Winit-self -Winvalid-pch \
 	-Wlong-long -Wmissing-braces -Wmissing-field-initializers \
 	-Wmissing-format-attribute -Wmissing-include-dirs -Wmissing-noreturn \
-	-Wpacked -Wpadded -Wparentheses -Wpointer-arith -Wredundant-decls \
+	-Wpacked -Wparentheses -Wpointer-arith -Wredundant-decls \
 	-Wreturn-type -Wsequence-point -Wshadow -Wsign-compare \
 	-Wstack-protector -Wstrict-aliasing -Wstrict-aliasing=2 -Wswitch \
 	-Wswitch-default -Wswitch-enum -Wtrigraphs -Wuninitialized \
