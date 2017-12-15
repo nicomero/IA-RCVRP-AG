@@ -41,11 +41,21 @@ int main(void)
         }
     }
 
-    /*calculo la cantidad de autos*/
+
     for(auto i: best.tour){
         std::cout << i.numero << "_";
     }
     std::cout << "\n";
+
+    float recorrimiento = 0;
+    for(auto i: best.miniDistancias){
+        recorrimiento += i;
+    }
+    file << recorrimiento << "\n";
+    std::cout << "\n";
+
+
+    /*calculo la cantidad de autos*/
     int autos = 0;
     for(auto i: best.retorno){
         autos +=i;
