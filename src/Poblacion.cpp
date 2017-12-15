@@ -61,15 +61,6 @@ Poblacion::Poblacion(std::string s) :n(), maxRiesgo(), cities(), residentes(){
     file.close();
 };
 
-void Poblacion::mutarMasivo(){
-
-    /*Muto cada individuo*/
-    for (unsigned i=0; i < this->residentes.size(); i++){
-
-        this->residentes[i].mutar(this->maxRiesgo);
-    }
-};
-
 void Poblacion::cruzar(Individuo &padre, Individuo &madre){
 
     int i;
@@ -267,6 +258,8 @@ void Poblacion::cruzaMasiva(){
         /*cruzar y agregar a la siguiente generacion*/
         cruzar(padre, madre);
 
+        padre.mutar(this->maxRiesgo);
+        madre.mutar(this->maxRiesgo);
         nextGen.push_back(padre);
         nextGen.push_back(madre);
     }

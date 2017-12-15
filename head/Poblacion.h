@@ -13,7 +13,7 @@ public:
     std::vector<Individuo> residentes; //poblacion
 
     Poblacion(std::string s);   //constructor
-    void mutarMasivo(); //muta a toda la poblacion
+
     void cruzar(Individuo &padre, Individuo &madre);    //cruza 2 individuos
     void cruzaMasiva(); //cruza la poblacion
 
