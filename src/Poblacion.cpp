@@ -171,9 +171,6 @@ void Poblacion::cruzar(Individuo &padre, Individuo &madre){
     }
 
     /*Mutacion del retorno*/
-    //int lenRetorno = (int) padre.retorno.size();
-    //int corte1 = (std::rand()% (n-1));
-    std::cout << lugar1-1 << "  " << lugar2-1 << "\n";
 
     int temp;
     for (int z = lugar1-1; z < lugar2-1 ; z++) {
