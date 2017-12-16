@@ -6,18 +6,19 @@
 #include "Poblacion.h"
 #include "Individuo.h"
 
-int main(void)
+int main(int argc, char *argv[] )
 {
-    std::string s;
-    std::cout << "Ingrese archivo a analizar\n";
-    getline(std::cin, s);
+    std::string s(argv[1]);
+    //std::cout << "Ingrese archivo a analizar\n";
+    //getline(std::cin, s);
+    std::cout <<  s <<"\n";
     //std::string s = "Instancias-RCVRP/SET O/16.txt";
     //std::string s = "Instancias-RCVRP/SET V/RISK LEVEL 1.0/RISK LEVEL 1.0/22.txt";
     //std::string s = "Instancias-RCVRP/SET R/6_1_1.0.txt";
     Poblacion mundo = Poblacion(s);
 
     /*ocurre la magia*/
-    for (int veces = 0; veces < 1000; veces++) {
+    for (int veces = 0; veces < 100; veces++) {
 
         mundo.cruzaMasiva();
 
@@ -25,8 +26,9 @@ int main(void)
     }
 
     /********* escribir en archivo *********/
-
-    std::ofstream file{"INSTANCIA.out", std::ofstream::out};
+    s+= ".out";
+    std::cout << "========================================" <<  s <<"\n";
+    std::ofstream file{s, std::ofstream::out};
     if (!file.good()){
         std::cout << "PROBLEMOM";
         return 1;
