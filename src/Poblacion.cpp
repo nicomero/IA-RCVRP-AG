@@ -52,7 +52,7 @@ Poblacion::Poblacion(std::string s) :n(), maxRiesgo(), cities(), residentes(){
     /*Genero poblacion de individuos*/
     std::time_t tiempo = std::time(0);
     std::srand ( unsigned ( tiempo ) );
-    for (i=0; i<500 ; i++){
+    for (i=0; i<1000 ; i++){
 
         Individuo raton = Individuo(this->cities , this->maxRiesgo);
         this->residentes.push_back(raton);
@@ -170,11 +170,10 @@ void Poblacion::cruzar(Individuo &padre, Individuo &madre){
         k++;
     }
 
-    int lenRetorno = (int) padre.retorno.size();
-    int corte1 = (std::rand()% (n-1));
+    /*Mutacion del retorno*/
 
     int temp;
-    for (int z = corte1; z < lenRetorno ; z++) {
+    for (int z = lugar1-1; z < lugar2-1 ; z++) {
 
         temp = padre.retorno[z];
         padre.retorno[z] = madre.retorno[z];
